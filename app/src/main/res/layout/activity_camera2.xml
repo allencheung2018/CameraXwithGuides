@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|left"
             android:text="Cancel"
-            tools:visibility="invisible" />
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/button9"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:text="Save"
-            tools:visibility="invisible" />
+            android:visibility="invisible" />
 
     </FrameLayout>
 

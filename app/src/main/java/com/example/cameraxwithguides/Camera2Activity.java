@@ -252,6 +252,7 @@ public class Camera2Activity extends AppCompatActivity implements ViewTreeObserv
                 .rotation(getWindowManager().getDefaultDisplay().getRotation())
                 .previewSize(new Point(x, y))
                 .isMirror(true)
+                .rotation(180)
                 .build();
         camera2Helper.start();
     }
@@ -318,11 +319,12 @@ public class Camera2Activity extends AppCompatActivity implements ViewTreeObserv
             byte[] bytes = new byte[buffer.remaining()];
             buffer.get(bytes);
             final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-            if (bitmap != null) {
+            Bitmap bitmap1 = convert(bitmap);
+            if (bitmap1 != null) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        imageView.setImageBitmap(bitmap);
+                        imageView.setImageBitmap(bitmap1);
                         btnCancel.setVisibility(View.VISIBLE);
                         btnSave.setVisibility(View.VISIBLE);
                     }
@@ -330,6 +332,37 @@ public class Camera2Activity extends AppCompatActivity implements ViewTreeObserv
             }
             picture = false;
         }
+    }
+
+    public static Bitmap convert(Bitmap a) {
+        int w = a.getWidth();
+        int h = a.getHeight();
+//    Bitmap newb = Bitmap.createBitmap(w, h, Config.ARGB_8888);// 创建一个新的和SRC长度宽度一样的位图
+//    Canvas cv = new Canvas(newb);
+        Matrix m = new Matrix();
+        // m.postScale(1, -1); //镜像垂直翻转
+        m.postScale(-1, 1); // 镜像水平翻转
+
+        Bitmap new2 = Bitmap.createBitmap(a, 0, 0, w, h, m, true);
+//    cv.drawBitmap(new2, new Rect(0, 0, new2.getWidth(), new2.getHeight()),
+//          new Rect(0, 0, w, h), null);
+        return new2;
+    }
+
+    Bitmap adjustPhotoRotation(Bitmap bm, final int orientationDegree) {
+
+        Matrix m = new Matrix();
+        m.setRotate(orientationDegree, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+
+        try {
+            Bitmap bm1 = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, true);
+
+            return bm1;
+
+        } catch (OutOfMemoryError ex) {
+        }
+        return null;
+
     }
 
     @Override

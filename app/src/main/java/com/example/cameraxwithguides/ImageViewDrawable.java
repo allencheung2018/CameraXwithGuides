@@ -100,8 +100,8 @@ public class ImageViewDrawable extends androidx.appcompat.widget.AppCompatImageV
         for (int i=0;i<=16;i++){
             canvas.drawLine(stPx, stPy+i*h116Py, edPx, stPy+i*h116Py, currentPaint);
             canvas.drawLine(stPx+i*w116Px, stPy, stPx+i*w116Px, edPy, currentPaint);
-            canvas.drawText(getAlphabet(i), stPx-12, stPy + i*h116Py +5, textPaint);
-            canvas.drawText(String.valueOf((i+1)), stPx + i*w116Px - 3, stPy-5, textPaint);
+            canvas.drawText("Y"+String.valueOf((i+1)), edPx+5, stPy + i*h116Py +5, textPaint);
+            canvas.drawText("X"+String.valueOf((i+1)), stPx + i*w116Px - 3, stPy-8, textPaint);
         }
 
     }
