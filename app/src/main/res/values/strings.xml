@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CameraXwithGuides</string>
+    <string name="open_file_error">Can not found app to open image/video</string>
+</resources>
